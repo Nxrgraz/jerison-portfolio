@@ -1,0 +1,3 @@
+import {sitePath} from './site-path';
+export default function SiteNav({active}:{active?:string}){return <nav className="minimalNav"><a href={sitePath('/')} className="wordmark">JERISON TIAN</a><div><a className={active==='projects'?'active':''} href={sitePath('/projects/')}>PROJECTS</a><a className={active==='cad'?'active':''} href={sitePath('/cad/')}>CAD</a><a className={active==='pcb'?'active':''} href={sitePath('/pcb/')}>PCB</a><a className={active==='experience'?'active':''} href={sitePath('/experience/')}>EXPERIENCE</a><a className={active==='volunteering'?'active':''} href={sitePath('/volunteering/')}>VOLUNTEERING</a></div><a href="mailto:zongshuotian@outlook.com">CONTACT</a></nav>}
+

@@ -1,0 +1,139 @@
+.hubHome {
+  align-items: center;
+  display: grid;
+  gap: 7vw;
+  grid-template-columns: minmax(0, .85fr) minmax(480px, 1.15fr);
+  min-height: 0;
+}
+
+.hubIntro > span {
+  color: var(--muted);
+  font: 9px var(--font-geist-mono), monospace;
+}
+
+.hubIntro h1 {
+  font-size: clamp(82px, 10vw, 145px);
+  letter-spacing: -.085em;
+  line-height: .72;
+  margin: 6vh 0 5vh;
+}
+
+.hubIntro p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 500px;
+}
+
+.sectionMenu {
+  border-top: 1px solid var(--line);
+}
+
+.sectionMenu a {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 160px 1fr auto;
+  min-height: 82px;
+  padding: 0 12px;
+  transition: background .15s ease, padding .15s ease;
+}
+
+.sectionMenu a:hover {
+  background: #ecece7;
+  padding-left: 22px;
+}
+
+.sectionMenu span {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+
+.sectionMenu small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.sectionMenu i {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.activityMark {
+  background: #edede8;
+  grid-row: 1 / 4;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.activityMark::before,
+.activityMark::after {
+  border: 1px solid #c6c6c0;
+  border-radius: 50%;
+  content: '';
+  inset: 18%;
+  position: absolute;
+}
+
+.activityMark::after {
+  border-radius: 0;
+  inset: 30%;
+  transform: rotate(45deg);
+}
+
+.activityMark span {
+  bottom: 5px;
+  color: #d8d8d2;
+  font-size: 90px;
+  font-weight: 700;
+  line-height: 1;
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hubHome {
+    gap: 4vw;
+    grid-template-columns: .8fr 1.2fr;
+  }
+
+  .sectionMenu a {
+    grid-template-columns: 135px 1fr auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .hubHome {
+    display: block;
+    padding: 55px 0;
+  }
+
+  .hubIntro h1 {
+    font-size: 24vw;
+    margin: 45px 0;
+  }
+
+  .sectionMenu {
+    margin-top: 55px;
+  }
+
+  .sectionMenu a {
+    grid-template-columns: 1fr auto;
+    min-height: 86px;
+  }
+
+  .sectionMenu small {
+    display: none;
+  }
+
+  .activityMark {
+    height: 220px;
+    margin-bottom: 20px;
+  }
+}
+
