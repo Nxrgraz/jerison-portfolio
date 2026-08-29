@@ -147,7 +147,7 @@ body .projectGrid > a {
   color: var(--muted);
   cursor: pointer;
   display: grid;
-  grid-template-columns: 34px 1fr auto;
+  grid-template-columns: 1fr auto;
   grid-template-rows: auto auto;
   padding: 22px;
   text-align: left;
@@ -157,7 +157,6 @@ body .projectGrid > a {
   border-bottom: 0;
 }
 
-.experienceDeck > nav button span,
 .experienceDeck > nav button small {
   font: 8px var(--font-geist-mono), monospace;
 }
@@ -170,7 +169,7 @@ body .projectGrid > a {
 
 .experienceDeck > nav button small {
   align-self: end;
-  grid-column: 2 / 4;
+  grid-column: 1 / 3;
 }
 
 .experienceDeck > nav button i {
@@ -194,7 +193,7 @@ body .projectGrid > a {
 
 .experienceDeck > article {
   display: grid;
-  grid-template-columns: 1fr 110px;
+  grid-template-columns: 1fr;
   grid-template-rows: auto auto auto 1fr;
   padding: clamp(26px, 4vw, 58px);
   position: relative;
@@ -240,17 +239,9 @@ body .projectGrid > a {
 
 .experienceDeck li {
   border-top: 1px solid var(--line);
-  display: grid;
   font-size: 12px;
-  gap: 16px;
-  grid-template-columns: 28px 1fr;
   line-height: 1.35;
   padding: 9px 0;
-}
-
-.experienceDeck li i {
-  color: var(--accent);
-  font: 8px var(--font-geist-mono), monospace;
 }
 
 .experienceBottom {
@@ -272,23 +263,6 @@ body .projectGrid > a {
   padding-bottom: 6px;
 }
 
-.experienceCount {
-  align-items: baseline;
-  display: flex;
-  grid-column: 2;
-  grid-row: 1 / 3;
-  justify-content: end;
-}
-
-.experienceCount b {
-  font-size: 46px;
-  letter-spacing: -.06em;
-}
-
-.experienceCount span {
-  color: var(--muted);
-  font: 9px var(--font-geist-mono), monospace;
-}
 
 @keyframes page-out {
   to { opacity: 0; transform: scale(.99); }
@@ -338,10 +312,6 @@ body .projectGrid > a {
     display: block;
     min-height: 560px;
     padding: 28px;
-  }
-
-  .experienceCount {
-    display: none;
   }
 
   .experienceDeck h2 {
