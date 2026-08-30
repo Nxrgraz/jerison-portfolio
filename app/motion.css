@@ -263,6 +263,257 @@ body .projectGrid > a {
   padding-bottom: 6px;
 }
 
+.caseTabs .tabPanel {
+  overflow: hidden;
+}
+
+.panelIntro {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.panelIntro span,
+.filePanel > span,
+.overviewFacts small {
+  color: var(--accent);
+  font: 8px var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+}
+
+.panelIntro p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+.overviewPanel,
+.filePanel {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.overviewPanel .largeText {
+  margin-bottom: 4vh;
+}
+
+.overviewFacts {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.overviewFacts > div {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 18px 14px 0;
+}
+
+.overviewFacts > div:nth-child(2) {
+  border-left: 1px solid var(--line);
+  padding-left: 18px;
+}
+
+.overviewFacts > div:last-child {
+  grid-column: 1 / 3;
+}
+
+.overviewFacts p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 7px 0 0;
+}
+
+.detailList {
+  height: calc(100% - 42px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.detailList details {
+  border-top: 1px solid var(--line);
+}
+
+.detailList details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.detailList summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 14px 0;
+}
+
+.detailList summary::-webkit-details-marker {
+  display: none;
+}
+
+.detailList summary span {
+  display: grid;
+  gap: 4px;
+}
+
+.detailList summary strong {
+  font-size: 16px;
+}
+
+.detailList summary small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.detailList summary i {
+  color: var(--accent);
+  font-style: normal;
+  transition: transform 220ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.detailList details[open] summary i {
+  transform: rotate(45deg);
+}
+
+.detailList details[open] summary {
+  padding-bottom: 8px;
+}
+
+.detailList ul {
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.detailList li {
+  border-top: 1px solid color-mix(in srgb, var(--line), transparent 35%);
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 9px 0 9px 18px;
+  position: relative;
+}
+
+.detailList li::before {
+  color: var(--accent);
+  content: '—';
+  left: 0;
+  position: absolute;
+}
+
+.filePanel .stackGrid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 4vh;
+}
+
+.downloadGrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  margin: 14px 0 22px;
+}
+
+.downloadGrid > a {
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  min-height: 155px;
+  padding: 16px;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.downloadGrid > a:hover {
+  background: #ecece7;
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.downloadGrid small,
+.downloadGrid i {
+  color: var(--accent);
+  font: 8px var(--font-geist-mono), monospace;
+  font-style: normal;
+}
+
+.downloadGrid strong {
+  font-size: 17px;
+  margin-top: 12px;
+}
+
+.downloadGrid p,
+.sourceNote,
+.emptyFiles {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.downloadGrid i {
+  margin-top: auto;
+}
+
+.sourceNote {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.askLink {
+  color: var(--accent);
+  display: inline-block;
+  font: 8px var(--font-geist-mono), monospace;
+  margin-top: 12px;
+}
+
+.twoPanel.cadDownloadPanels > article {
+  grid-template-rows: auto auto 1fr auto;
+}
+
+.cadDownloadPanels .miniCad {
+  grid-row: 1 / 5;
+}
+
+.cadDownloads {
+  align-self: end;
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.cadDownloads > a {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 4px;
+  grid-template-columns: 1fr auto;
+  padding-top: 8px;
+}
+
+.cadDownloads span {
+  color: var(--accent);
+  font: 8px var(--font-geist-mono), monospace;
+  grid-column: 1;
+}
+
+.cadDownloads strong {
+  font-size: 12px;
+  grid-column: 1;
+}
+
+.cadDownloads i {
+  color: var(--accent);
+  font-style: normal;
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.cadCaseLink {
+  color: var(--muted);
+  font: 8px var(--font-geist-mono), monospace;
+  margin-top: 14px;
+}
+
 
 @keyframes page-out {
   to { opacity: 0; transform: scale(.99); }
@@ -326,6 +577,51 @@ body .projectGrid > a {
   .experienceBottom > a {
     display: inline-block;
     margin-top: 24px;
+  }
+
+  .caseTabs .tabPanel {
+    overflow: visible;
+  }
+
+  .caseTabs > nav {
+    gap: 15px;
+    overflow-x: auto;
+  }
+
+  .overviewPanel,
+  .filePanel,
+  .detailList {
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .overviewFacts,
+  .downloadGrid,
+  .filePanel .stackGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .overviewFacts > div:nth-child(2) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .overviewFacts > div:last-child {
+    grid-column: 1;
+  }
+
+  .panelIntro {
+    align-items: start;
+    display: block;
+  }
+
+  .panelIntro p {
+    margin-top: 8px;
+  }
+
+  .cadDownloadPanels > article {
+    display: block;
   }
 }
 
