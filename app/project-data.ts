@@ -28,6 +28,9 @@ export type Project = {
   metrics: {value: string; label: string}[];
   downloads: ProjectDownload[];
   source: string;
+  highlights?: string[];
+  video?: {id:string; title:string};
+  repository?: string;
 };
 
 export const projects: Project[] = [
@@ -37,11 +40,36 @@ export const projects: Project[] = [
     type: 'NSERC RESEARCH',
     status: 'TESTED / ONBOARD DEPLOYMENT IN PROGRESS',
     role: 'NSERC Undergraduate Student Researcher — University of Alberta',
-    period: 'May–August 2026 · Supervisor: Prof. Martin Barczyk',
+    period: 'May 2026–present · Supervisor: Prof. Martin Barczyk',
+    video: {id:'P0rEn2qfZdM', title:'Autonomous Drone Tracking'},
+    highlights: [
+      'Raised sustained perception throughput from approximately 9 to 30 FPS with a modular ROS 2 pipeline and C++ / CUDA inference.',
+      'Generated a 428-image, eight-keypoint training dataset from Vicon geometry, compensating for approximately 110 ms of video latency.',
+      'Validated autonomous 3D following, settling and target reacquisition in controlled flight. Final Phase 60 testing recorded 93.6% target freshness and approximately 8 px median vertical image error.'
+    ],
     summary: 'A single end-to-end research system for vision-based drone detection, 3D estimation, predictive pursuit control and real-flight validation.',
     overview: 'A camera-equipped pursuer detects another drone, estimates its relative three-dimensional position and generates motion commands to follow it in real time. My work spanned the complete robotics stack: perception, ROS 2, C++ optimization, cameras, MPC, simulation, Vicon validation and controlled flight testing.',
     problem: 'Continuously perceive and pursue a moving drone without allowing inference latency, communication mismatches, noisy geometry, control overshoot or physical hardware faults to break the autonomy loop.',
     engineering: [
+      {
+        title: 'Automated labels from motion capture',
+        summary: 'Projected known 3D drone geometry into camera images to train an eight-keypoint YOLO pose model.',
+        bullets: [
+          'Created 428 camera-specific images: approximately 388 training and 40 validation images, split by capture session to reduce leakage.',
+          'Calibrated camera intrinsics and mounting geometry, then checked projected keypoints with visual QA overlays.',
+          'Matched frames to historical Vicon poses to compensate for approximately 110 ms of effective FPV video latency; fine-tuned the model on an RTX 3090.'
+        ]
+      },
+      {
+        title: 'Measured dynamics and predictive braking',
+        summary: 'Used physical flight response to design axis-specific MPC and stopping behavior.',
+        bullets: [
+          'Identified lateral input delay of approximately 0.32 s and a 2.48 s time constant; vertical delay was approximately 0.12 s with a 0.34 s time constant.',
+          'Combined relative vision estimates with pursuer telemetry to distinguish target motion from the pursuing drone’s own movement.',
+          'Used closing velocity, measured delay and estimated braking acceleration to anticipate stopping distance.',
+          'Developed asynchronous MPC solving and stale-data supervision; later development reduced effective state age to approximately 29 ms.'
+        ]
+      },
       {
         title: 'ROS 2 perception architecture',
         summary: 'Separated expensive perception tasks so one slow component could not block the full system.',
@@ -162,13 +190,20 @@ export const projects: Project[] = [
   },
   {
     slug: 'pan-tilt',
-    title: 'ML Pan–Tilt Camera',
+    title: 'Predictive Face-Tracking Camera',
     type: 'INDEPENDENT ROBOTICS',
     status: 'COMPLETED',
     role: 'Designer and developer — independent project',
     period: 'Completed system · latest CAD export Rev K',
-    summary: 'A completed two-axis robot that detects a person in C++, sends target commands to an Arduino and physically keeps the camera centered.',
-    overview: 'I built the entire feedback loop: webcam capture, YOLO inference, target-error calculation, C++ serial commands, Arduino firmware, dual-servo actuation, SolidWorks CAD, fabrication and physical assembly.',
+    summary: 'A physical two-axis camera that follows an enrolled face using custom YOLO inference and delay-aware predictive control.',
+    overview: 'I designed, printed and assembled a robotic camera, trained a detector for one enrolled face, and built the C++ perception and predictive control loop that drives its Arduino-controlled servos.',
+    video: {id:'-N-iI8u7ksU', title:'Webcam Tracker Demo'},
+    repository: 'https://github.com/Nxrgraz/Webcam-Tracker',
+    highlights: [
+      'Trained a custom YOLO model with PyTorch / Ultralytics and deployed ONNX inference directly in C++ with OpenCV DNN.',
+      'Built independent pan and tilt MPC controllers at approximately 20 Hz with a 10-step, 0.5-second prediction horizon.',
+      'Integrated delay compensation, target-motion estimation, stationary hold and acceleration limits with a SolidWorks-designed, 3D-printed mechanism.'
+    ],
     problem: 'Convert a laptop-based detector into a dependable physical robot where vision, embedded control, electronics and mechanics operate together with low enough latency to track a person.',
     engineering: [
       {
@@ -176,17 +211,18 @@ export const projects: Project[] = [
         summary: 'Implemented the inference path directly with OpenCV DNN and an ONNX model.',
         bullets: [
           'Built webcam capture, preprocessing, input-blob creation, forward inference, confidence filtering, box reconstruction, NMS, target selection and visualization.',
-          'Parsed YOLOv8 output tensors such as 1 × 84 × 8400 instead of relying on a high-level Python wrapper.',
+          'Trained a custom enrolled-face detector; decoded ONNX outputs and mapped letterboxed detections back to the original camera frame.',
           'Used the target centre as the measured state for the physical feedback loop.'
         ]
       },
       {
-        title: 'Closed-loop pan and tilt tracking',
-        summary: 'Connected perception output to physical motion on two axes.',
+        title: 'Delay-aware predictive control',
+        summary: 'Replaced reactive PID tracking with lightweight MPC implemented directly in C++.',
         bullets: [
-          'Calculated horizontal and vertical image error relative to the camera-frame centre.',
-          'Mapped horizontal error to pan and vertical error to tilt.',
-          'Implemented the loop Camera → YOLO → target error → C++ controller → serial → Arduino → servos → new image.'
+          'Evaluated candidate angular velocities over 10 steps at approximately 20 Hz, penalizing tracking error, control effort, command changes and terminal error.',
+          'Used independent first-order servo models and delayed-command queues. Model parameters are starting estimates, not experimentally identified dynamics.',
+          'Estimated target motion after compensating for camera-induced image movement; used hysteresis and stationary hold to reduce hunting.',
+          'Limited velocity to approximately 18°/s and acceleration to 45°/s²; handled target loss, manual control and smooth recentering.'
         ]
       },
       {
@@ -237,25 +273,39 @@ export const projects: Project[] = [
         ]
       }
     ],
-    stack: ['C++','OpenCV DNN','YOLO','ONNX','Arduino Uno','Embedded C++','UART','2× SG90','SolidWorks','3D Printing'],
-    metrics: [{value:'2',label:'CONTROL AXES'},{value:'115200',label:'UART BAUD'},{value:'REV K',label:'LATEST ASSEMBLY'}],
+    stack: ['C++','MPC','OpenCV DNN','YOLO','PyTorch','ONNX','Arduino Uno','Embedded C++','UART','2× SG90','SolidWorks','3D Printing'],
+    metrics: [{value:'20 HZ',label:'CONTROL LOOP'},{value:'0.5 S',label:'PREDICTION HORIZON'},{value:'2',label:'CONTROL AXES'}],
     downloads: [
       {name:'Pan–Tilt Full Assembly',format:'STEP',size:'1.33 MB',path:'/cad-assemblies/pan-tilt-revk-full-assembly.step',description:'Rev K assembly including the visual camera and servo references.'},
       {name:'Pan–Tilt Printable Assembly',format:'STEP',size:'0.81 MB',path:'/cad-assemblies/pan-tilt-revk-printable-assembly.step',description:'Rev K printable mechanism assembled without loose reference parts.'}
     ],
-    source: 'Code repository will be linked after cleanup. The latest complete CAD assemblies are available for download.'
+    source: 'Demo and complete CAD assemblies are available here. Quantitative MPC-versus-PID performance comparison and measured servo identification remain future work.'
   },
   {
     slug: 'steady-spoon',
     title: 'Tremor-Stabilizing Spoon',
     type: 'ASSISTIVE MECHATRONICS',
-    status: 'IN PROGRESS / NEAR COMPLETION',
+    status: 'IN PROGRESS / IMU INTEGRATION',
+    highlights: [
+      'Developed a two-axis SolidWorks mechanism around handheld weight, actuator geometry, moving clearances and electronics packaging.',
+      'Validated STM32 firmware flashing and GPIO operation; MPU6050 integration over I2C is underway.',
+      'Sensor fusion, closed-loop stabilization and measured tremor reduction remain under development.'
+    ],
     role: 'Designer and developer — independent assistive-device project',
     period: 'Prototype development · latest CAD export V3.9',
     summary: 'A compact assistive eating device intended to reduce how much hand tremor reaches the utensil.',
-    overview: 'This project applies mechatronics to a human-centred problem. The design is intended for people who experience hand tremor, including older adults and people affected by Parkinson’s disease, while remaining compact, lightweight and practical to hold.',
+    overview: 'I am developing a two-axis spoon stabilizer combining a custom mechanical assembly, STM32 firmware, MPU6050 inertial sensing and servo actuation. The goal is to counter unwanted hand rotation while keeping the device lightweight and comfortable. Full stabilization has not yet been demonstrated.',
     problem: 'Stabilize a spoon without creating a device that is too heavy, bulky, uncomfortable, difficult to assemble or unsafe for everyday use.',
     engineering: [
+      {
+        title: 'STM32 firmware and inertial sensing',
+        summary: 'Validated the embedded toolchain and began integrating the sensor path.',
+        bullets: [
+          'Successfully built, flashed and ran STM32 firmware; verified GPIO operation with simple hardware tests.',
+          'Began MPU6050 wiring and I2C peripheral integration before attempting sensor fusion.',
+          'Next steps are reliable continuous sensor reads, bias calibration, filtering, two-axis servo control and controlled stabilization tests.'
+        ]
+      },
       {
         title: 'Human-centred design priorities',
         summary: 'Optimized for practical use rather than maximum autonomous performance.',
@@ -287,7 +337,7 @@ export const projects: Project[] = [
     validation: [
       {
         title: 'Current status',
-        summary: 'Mechanical design and prototyping have progressed substantially, but final integration is not complete.',
+        summary: 'CAD, STM32 flashing and GPIO are established; IMU communication and feedback control are the next milestones.',
         bullets: [
           'The device remains an in-progress assistive prototype until final integration and validation are finished.',
           'Architecture and performance claims are intentionally conservative until controlled testing is complete.',
@@ -303,8 +353,8 @@ export const projects: Project[] = [
         ]
       }
     ],
-    stack: ['SolidWorks','Mechanical Design','Rapid Prototyping','3D Printing','Mechatronics','Human Factors','PCB Planned'],
-    metrics: [{value:'V3.9',label:'LATEST CAD'},{value:'HANDHELD',label:'FORM FACTOR'},{value:'PCB',label:'NEXT STEP'}],
+    stack: ['STM32','MPU6050','I2C','Embedded Firmware','SolidWorks','3D Printing','Servo Control','PCB Planned'],
+    metrics: [{value:'2',label:'STABILIZATION AXES'},{value:'STM32',label:'CONTROL PLATFORM'},{value:'IMU',label:'INTEGRATION STAGE'}],
     downloads: [
       {name:'SteadyHand Packaging Assembly',format:'STEP',size:'5.11 MB',path:'/cad-assemblies/steadyhand-v3-9-packaging-assembly.step',description:'V3.9 complete packaging assembly for component placement and envelope review.'},
       {name:'SteadyHand Mechanical Audit Assembly',format:'STEP',size:'4.97 MB',path:'/cad-assemblies/steadyhand-v3-9-mechanical-audit-assembly.step',description:'V3.9 complete mechanism assembly for fit and clearance inspection.'}
@@ -402,4 +452,3 @@ export const projects: Project[] = [
 ];
 
 export const getProject = (slug: string) => projects.find(project => project.slug === slug);
-

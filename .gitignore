@@ -15,6 +15,7 @@
 /.next/
 /.vinext/
 /out/
+/public/cad-previews/
 
 # misc
 .DS_Store
@@ -36,4 +37,3 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
-

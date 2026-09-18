@@ -1,6 +1,7 @@
 import SiteNav from '../nav';
 import {getProject} from '../project-data';
 import {sitePath} from '../site-path';
+import CadViewer from '../cad-viewer';
 
 const models = [
   {
@@ -27,7 +28,7 @@ export default function Cad() {
       </header>
       <div className="twoPanel cadDownloadPanels">
         {models.map(model => <article key={model.project.slug}>
-          <div className="miniCad"><strong>{model.visual}</strong><i/><i/></div>
+          <CadViewer slug={model.project.slug} title={model.project.title}/>
           <header><small>{model.status}</small><h2>{model.project.title}</h2></header>
           <p>{model.copy}</p>
           <div className="cadDownloads">
@@ -44,4 +45,3 @@ export default function Cad() {
     <footer className="minimalFooter"><a href={sitePath('/')}>← HOME</a><span>ASSEMBLIES ONLY · INDIVIDUAL PARTS EXCLUDED</span></footer>
   </main>;
 }
-
