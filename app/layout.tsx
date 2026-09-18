@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 const title = 'Jerison Tian — Robotics & Mechatronics Portfolio';
-const description = 'Interactive project deck covering autonomous systems, computer vision, controls, embedded hardware and CAD.';
+const description = 'Jerison Tian is a mechatronics and robotics engineering co-op student at the University of Alberta working on autonomous drone research and personal robotics projects.';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nxrgraz.github.io/jerison-portfolio';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -23,4 +23,3 @@ export default function RootLayout({
     </html>
   );
 }
-

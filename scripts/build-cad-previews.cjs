@@ -4,7 +4,7 @@ const path = require('node:path');
 async function main() {
   const occt = await require('occt-import-js')();
   const assemblies = {
-    'pan-tilt': 'pan-tilt-revk-full-assembly.step',
+    'pan-tilt': 'pan-tilt-revm-full-assembly.step',
     'steady-spoon': 'steadyhand-v3-9-packaging-assembly.step',
   };
   const target = path.join(__dirname, '..', 'public', 'cad-previews');

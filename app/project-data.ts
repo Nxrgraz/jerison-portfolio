@@ -52,6 +52,16 @@ export const projects: Project[] = [
     problem: 'Continuously perceive and pursue a moving drone without allowing inference latency, communication mismatches, noisy geometry, control overshoot or physical hardware faults to break the autonomy loop.',
     engineering: [
       {
+        title: 'FPV platform and flight-hardware integration',
+        summary: 'Prepared the research platform for future onboard autonomy through propulsion, power and telemetry diagnostics.',
+        bullets: [
+          'Used ArduPilot, MAVProxy and MAVLink for controlled motor tests with propellers removed, comparing baseline, active-test and shutdown telemetry.',
+          'Examined yaw, yaw rate and arm/disarm state to distinguish propulsion faults from sensor drift, vibration and flight-controller configuration.',
+          'Checked LiPo balance connections, charger configuration, polarity and individual-cell monitoring during power-system troubleshooting.',
+          'This hardware work supports the NSERC drone-tracking system. Jetson deployment and full onboard integration remain in progress.'
+        ]
+      },
+      {
         title: 'Automated labels from motion capture',
         summary: 'Projected known 3D drone geometry into camera images to train an eight-keypoint YOLO pose model.',
         bullets: [
@@ -194,7 +204,7 @@ export const projects: Project[] = [
     type: 'INDEPENDENT ROBOTICS',
     status: 'COMPLETED',
     role: 'Designer and developer — independent project',
-    period: 'Completed system · latest CAD export Rev K',
+    period: 'Completed system · latest CAD export Rev M',
     summary: 'A physical two-axis camera that follows an enrolled face using custom YOLO inference and delay-aware predictive control.',
     overview: 'I designed, printed and assembled a robotic camera, trained a detector for one enrolled face, and built the C++ perception and predictive control loop that drives its Arduino-controlled servos.',
     video: {id:'-N-iI8u7ksU', title:'Webcam Tracker Demo'},
@@ -276,8 +286,8 @@ export const projects: Project[] = [
     stack: ['C++','MPC','OpenCV DNN','YOLO','PyTorch','ONNX','Arduino Uno','Embedded C++','UART','2× SG90','SolidWorks','3D Printing'],
     metrics: [{value:'20 HZ',label:'CONTROL LOOP'},{value:'0.5 S',label:'PREDICTION HORIZON'},{value:'2',label:'CONTROL AXES'}],
     downloads: [
-      {name:'Pan–Tilt Full Assembly',format:'STEP',size:'1.33 MB',path:'/cad-assemblies/pan-tilt-revk-full-assembly.step',description:'Rev K assembly including the visual camera and servo references.'},
-      {name:'Pan–Tilt Printable Assembly',format:'STEP',size:'0.81 MB',path:'/cad-assemblies/pan-tilt-revk-printable-assembly.step',description:'Rev K printable mechanism assembled without loose reference parts.'}
+      {name:'Pan–Tilt Full Assembly',format:'STEP',size:'1.73 MB',path:'/cad-assemblies/pan-tilt-revm-full-assembly.step',description:'Rev M assembly including the visual camera and servo references.'},
+      {name:'Pan–Tilt Printable Assembly',format:'STEP',size:'1.21 MB',path:'/cad-assemblies/pan-tilt-revm-printable-assembly.step',description:'Rev M printable mechanism assembled without loose reference parts.'}
     ],
     source: 'Demo and complete CAD assemblies are available here. Quantitative MPC-versus-PID performance comparison and measured servo identification remain future work.'
   },
@@ -360,61 +370,6 @@ export const projects: Project[] = [
       {name:'SteadyHand Mechanical Audit Assembly',format:'STEP',size:'4.97 MB',path:'/cad-assemblies/steadyhand-v3-9-mechanical-audit-assembly.step',description:'V3.9 complete mechanism assembly for fit and clearance inspection.'}
     ],
     source: 'The latest complete assembly exports are public. Individual printable parts are intentionally not published here.'
-  },
-  {
-    slug: 'fpv-platform',
-    title: 'FPV Flight-System Diagnostics',
-    type: 'FLIGHT HARDWARE CASE STUDY',
-    status: 'ONGOING',
-    role: 'Independent / research-related hardware diagnostics',
-    period: 'Active testing for future autonomous-systems work',
-    summary: 'Systematic propulsion, electrical and telemetry testing for an FPV quadcopter being prepared for onboard autonomy.',
-    overview: 'I use controlled tests and measured telemetry to determine whether unexpected multirotor behaviour comes from propulsion, electrical power, estimation, sensors, configuration or the flight controller instead of replacing components by guesswork.',
-    problem: 'A flight anomaly can come from software, sensors, communication, power electronics, propulsion or mechanical hardware, so every test must isolate one variable and preserve safety.',
-    engineering: [
-      {
-        title: 'Motor and propulsion testing',
-        summary: 'Tested individual motor channels safely and used telemetry to interpret the result.',
-        bullets: [
-          'Used MAVProxy/ArduPilot motor-test commands with propellers removed.',
-          'Tested Motor 2 at 5% output for 5 seconds and confirmed the flight controller completed the test.',
-          'Compared pre-test, active-test and shutdown attitude behaviour rather than judging the motor only by sound or appearance.'
-        ]
-      },
-      {
-        title: 'Telemetry-based isolation',
-        summary: 'Used recorded state to narrow the possible source of unexpected behaviour.',
-        bullets: [
-          'Examined yaw angle, yaw rate, arm/disarm state, motor-test timing and attitude response.',
-          'Separated possible motor, ESC, magnetic, flight-controller, sensor-drift and vibration causes.',
-          'Found no strong evidence in one test that Motor 2 caused a major yaw disturbance because similar drift existed before spin-up.'
-        ]
-      },
-      {
-        title: 'LiPo and electrical diagnostics',
-        summary: 'Verified power-system configuration before progressing to flight tests.',
-        bullets: [
-          'Investigated balance-connector detection and charger configuration.',
-          'Checked main polarity, cell count, charging current and individual-cell monitoring.',
-          'Used electrical evidence to distinguish connection problems from possible battery damage.'
-        ]
-      }
-    ],
-    validation: [
-      {
-        title: 'Engineering approach',
-        summary: 'The case study demonstrates practical failure isolation around an autonomy platform.',
-        bullets: [
-          'Changed one variable at a time and used measured data to choose the next test.',
-          'Established a baseline that can be compared with the remaining motor channels.',
-          'Kept the Jetson onboard-compute direction clearly marked as future integration, not a completed deployment.'
-        ]
-      }
-    ],
-    stack: ['ArduPilot','MAVProxy','MAVLink','Flight Controller','ESCs','Brushless Motors','LiPo Batteries','Flight Telemetry','Attitude Analysis'],
-    metrics: [{value:'5%',label:'TEST OUTPUT'},{value:'5 S',label:'TEST DURATION'},{value:'0',label:'PROPS INSTALLED'}],
-    downloads: [],
-    source: 'Hardware test notes and telemetry are available on request.'
   },
   {
     slug: 'traffic-glasses',

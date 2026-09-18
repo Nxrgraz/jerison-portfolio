@@ -6,7 +6,7 @@ import CadViewer from '../cad-viewer';
 const models = [
   {
     project: getProject('pan-tilt')!,
-    status: 'LATEST EXPORT · REV K',
+    status: 'LATEST EXPORT · REV M',
     visual: 'PAN–TILT / COMPLETE ASSEMBLY',
     copy: 'Two-axis camera mechanism designed around SG90 servo geometry, webcam mounting, printability, fastener access and clean wiring.'
   },
